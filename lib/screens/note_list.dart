@@ -35,12 +35,14 @@ class NoteListState extends State<NoteList> {
         title: Text('Notes'),
       ),
 
-      body: getNoteListView(),
+      body: getNoteListView(),//get the list of notes
 
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           debugPrint('FAB clicked');
           navigateToDetail(Note('', '', 2), 'Add Note');
+          //navigate to detail calls note detail widget and takes argument as Note and app title
+          //here for FAB new note title = Add note and default priority is 2(high)
         },
 
         tooltip: 'Add Note',
@@ -51,10 +53,12 @@ class NoteListState extends State<NoteList> {
     );
   }
 
+
+
+
+  //get the list of notes
   ListView getNoteListView() {
-
     TextStyle titleStyle = Theme.of(context).textTheme.subhead;
-
     return ListView.builder(
       itemCount: count,
       itemBuilder: (BuildContext context, int position) {
@@ -76,6 +80,7 @@ class NoteListState extends State<NoteList> {
               child: Icon(Icons.delete, color: Colors.grey,),
               onTap: () {
                 _delete(context, noteList[position]);
+                //_delete method deletes note of noteList at position index
               },
             ),
 
@@ -83,6 +88,8 @@ class NoteListState extends State<NoteList> {
             onTap: () {
               debugPrint("ListTile Tapped");
               navigateToDetail(this.noteList[position],'Edit Note');
+              //if user press at perticular note then this will open note detail with
+              // app title Edit Note and , Node object current Node List index element
             },
 
           ),
@@ -138,6 +145,8 @@ class NoteListState extends State<NoteList> {
     Scaffold.of(context).showSnackBar(snackBar);
   }
 
+
+  //if user click on perticular note then this function will be called
   void navigateToDetail(Note note, String title) async {
     bool result = await Navigator.push(context, MaterialPageRoute(builder: (context) {
       return NoteDetail(note, title);
@@ -149,6 +158,8 @@ class NoteListState extends State<NoteList> {
   }
 
 
+
+  //update the data of list view if new item is added / one item is deleted
   void updateListView() {
 
     final Future<Database> dbFuture = databaseHelper.initializeDatabase();
