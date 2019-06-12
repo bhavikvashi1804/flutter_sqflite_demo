@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
 import 'package:flutter_sqflite_demo/models/note.dart';
 import 'package:flutter_sqflite_demo/utils/database_helper.dart';
 import 'package:intl/intl.dart';
@@ -33,6 +32,7 @@ class NoteDetailState extends State<NoteDetail> {
   TextEditingController titleController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
 
+  //constructor
   NoteDetailState(this.note, this.appBarTitle);
 
   @override

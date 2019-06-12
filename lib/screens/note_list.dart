@@ -44,11 +44,8 @@ class NoteListState extends State<NoteList> {
           //navigate to detail calls note detail widget and takes argument as Note and app title
           //here for FAB new note title = Add note and default priority is 2(high)
         },
-
         tooltip: 'Add Note',
-
         child: Icon(Icons.add),
-
       ),
     );
   }
@@ -68,8 +65,8 @@ class NoteListState extends State<NoteList> {
           child: ListTile(
 
             leading: CircleAvatar(
-              backgroundColor: getPriorityColor(this.noteList[position].priority),
-              child: getPriorityIcon(this.noteList[position].priority),
+              backgroundColor: getPriorityColor(this.noteList[position].priority),//get the corresponding color
+              child: getPriorityIcon(this.noteList[position].priority),//get the corresponding icon
             ),
 
             title: Text(this.noteList[position].title, style: titleStyle,),
@@ -138,7 +135,7 @@ class NoteListState extends State<NoteList> {
       updateListView();
     }
   }
-  //shows snackbar after note is deleted
+  //shows SnackBar after note is deleted
   void _showSnackBar(BuildContext context, String message) {
 
     final snackBar = SnackBar(content: Text(message));
@@ -152,6 +149,9 @@ class NoteListState extends State<NoteList> {
       return NoteDetail(note, title);
     }));
 
+
+    //result check that whether database updated successfully
+    //if database updated then call the updateListView
     if (result == true) {
       updateListView();
     }
@@ -162,10 +162,17 @@ class NoteListState extends State<NoteList> {
   //update the data of list view if new item is added / one item is deleted
   void updateListView() {
 
+    //create database and create table into it
+    //dbFuture stores the obtained database
     final Future<Database> dbFuture = databaseHelper.initializeDatabase();
+
+
+    //after operation performed store  dbFuture into database
     dbFuture.then((database) {
 
+      //obtain the list of notes
       Future<List<Note>> noteListFuture = databaseHelper.getNoteList();
+      //noteListFuture into noteList
       noteListFuture.then((noteList) {
         setState(() {
           this.noteList = noteList;

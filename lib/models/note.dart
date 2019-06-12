@@ -14,13 +14,9 @@ class Note {
 
   //getter
   int get id => _id;
-
   String get title => _title;
-
   String get description => _description;
-
   int get priority => _priority;
-
   String get date => _date;
 
   //setter
@@ -29,24 +25,22 @@ class Note {
       this._title = newTitle;
     }
   }
-
   set description(String newDescription) {
     if (newDescription.length <= 255) {
       this._description = newDescription;
     }
   }
-
   set priority(int newPriority) {
     if (newPriority >= 1 && newPriority <= 2) {
       this._priority = newPriority;
     }
   }
-
   set date(String newDate) {
     this._date = newDate;
   }
 
   // Convert a Note object into a Map object
+  //Map<String, dynamic> because key is in form of string and its value are in form of int,string,bool
   Map<String, dynamic> toMap() {
 
     var map = Map<String, dynamic>();
@@ -62,6 +56,7 @@ class Note {
   }
 
   // Extract a Note object from a Map object
+  //take argument as Map Variable convert it into Note object
   Note.fromMapObject(Map<String, dynamic> map) {
     this._id = map['id'];
     this._title = map['title'];

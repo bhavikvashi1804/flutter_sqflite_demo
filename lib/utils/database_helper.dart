@@ -6,13 +6,7 @@ import 'package:flutter_sqflite_demo/models/note.dart';
 
 class DatabaseHelper {
 
-  static DatabaseHelper _databaseHelper;
-  // Singleton DatabaseHelper
-  //for this application only one instance is created for singleton
-
-
-  static Database _database;                // Singleton Database
-
+  //table columns
   String noteTable = 'note_table';
   String colId = 'id';
   String colTitle = 'title';
@@ -20,8 +14,16 @@ class DatabaseHelper {
   String colPriority = 'priority';
   String colDate = 'date';
 
+
+  // Singleton DatabaseHelper
+  //for this application only one instance is created for singleton
+  static DatabaseHelper _databaseHelper;
+
+  static Database _database;                // Singleton Database
+
   DatabaseHelper._createInstance(); // Named constructor to create instance of DatabaseHelper
 
+  //constructor for singleton class is called as factory
   factory DatabaseHelper() {
 
     if (_databaseHelper == null) {
@@ -48,6 +50,7 @@ class DatabaseHelper {
 
     // Open/create the database at a given path
     var notesDatabase = await openDatabase(path, version: 1, onCreate: _createDb);
+    //onCreate contains _createDb means after this it create table
     return notesDatabase;
   }
 
